@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple-python-package"
+requires-python = ">=3.10"
+version = "0.0.1"
+dependencies = ["requests", 'importlib-metadata; python_version<"3.8"']
+
+[project.scripts]
+simple-python-package = "simple_python_package.main:main"
