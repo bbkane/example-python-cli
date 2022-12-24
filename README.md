@@ -11,7 +11,7 @@ source ./venv/bin/activate
 python -m pip install --upgrade setuptools build pip
 ```
 
-Install symlink locally (make sure the `venv` is still activated so the global namespace stays clean):
+Install symlink locally (make sure the `venv` is still activated so the global python package installation stays clean):
 
 ```bash
 pip install -e .
@@ -19,3 +19,8 @@ pip install -e .
 simple-python-package
 ```
 
+This package can also be installed globally without polluting the global python package installation with [`pipx`](https://pypa.github.io/pipx/)
+
+```bash
+pipx install -e .
+```
