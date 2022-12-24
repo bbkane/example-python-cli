@@ -1,4 +1,4 @@
-Fairly recently, it's become possible to write Python packages with a `setup.py`! This is an example of how to do that.
+Fairly recently, it's become possible to write Python packages without a `setup.py`! This is an example of how to do that.
 
 From: https://setuptools.pypa.io/en/latest/userguide/quickstart.html
 
