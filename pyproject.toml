@@ -6,7 +6,30 @@ build-backend = "setuptools.build_meta"
 name = "simple-python-package"
 requires-python = ">=3.10"
 version = "0.0.1"
-dependencies = ["requests", 'importlib-metadata; python_version<"3.8"']
+dependencies = ["requests ~= 2.28.1"]
+
+[project.optional-dependencies]
+dev = ["black", "build", "isort", "mypy", "pylint"]
 
 [project.scripts]
 simple-python-package = "simple_python_package.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["simple_python_package*"]
+
+[tool.black]
+line-length = 100
+
+[tool.isort]
+profile = "black"
+
+[tool.pylint."messages control"]
+disable = [
+    "fixme",
+    "invalid-name",
+    "line-too-long",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "too-few-public-methods",
+]
