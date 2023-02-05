@@ -42,4 +42,3 @@ This can be necessary when I screw up `scripts/run.sh`.
 - Figure out how to get requirements files working and update dependencies?
 - CI/CD?
 - Get https://github.com/octodns/octodns-ns1/tree/main/script functionality
-- Get VS Code suggested packages (pylance, black, etc.) JSON file

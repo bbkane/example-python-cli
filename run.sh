@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Ensure CWD is the root of the project, ensure there's a virtual env and it's active, then call Python to do the actual work
+# Usage: ./run.sh --help
+
 # exit the script on command errors or unset variables
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euo pipefail

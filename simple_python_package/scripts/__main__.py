@@ -9,6 +9,7 @@ __author__ = "Benjamin Kane"
 __version__ = "0.1.0"
 __doc__ = """
 Run common development tasks for this repo.
+This file (__main__.py) should be called from the top-level run.sh script
 
 Examples:
     ./run.sh --help
