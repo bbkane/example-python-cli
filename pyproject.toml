@@ -9,14 +9,18 @@ version = "0.0.1"
 dependencies = ["requests ~= 2.28.1"]
 
 [project.optional-dependencies]
-dev = ["black", "build", "isort", "mypy", "pylint"]
+dev = ["black", "build", "isort", "mypy", "pylint", "types-requests"]
 
 [project.scripts]
 simple-python-package = "simple_python_package.main:main"
 
+# NOTE: this is still beta. No idea what the schedule is to make it stable or discard it
+# Hopefullo https://github.com/pypa/setuptools/issues/3683#issuecomment-1408397531 will help
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["simple_python_package*"]
+exclude = ["simple_python_package.tests*"]
+namespaces = false
 
 [tool.black]
 line-length = 100
