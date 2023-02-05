@@ -4,7 +4,6 @@
 import argparse
 import os
 import subprocess
-import typing as ty
 
 __author__ = "Benjamin Kane"
 __version__ = "0.1.0"
@@ -19,8 +18,13 @@ Examples:
 ROOT_PKG = "simple_python_package"
 
 
-def run(*args: str):
-    subprocess.run(args, check=True)
+def run(*args: str, failure_msg=None):
+    res = subprocess.run(args, check=False)
+    if res.returncode != 0:
+        if failure_msg:
+            raise SystemExit(f"Command failed: {args}. {failure_msg}")
+
+        raise SystemExit(f"Command failed: {args}. Exiting...")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -31,8 +35,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     subcommands = parser.add_subparsers(dest="subcommand_name", required=True)
 
-    subcommands.add_parser("test", help="run tests")
     subcommands.add_parser("fmt", help="format source code")
+    subcommands.add_parser("lint", help="run various source code linters")
+    subcommands.add_parser("test", help="run tests")
 
     return parser
 
@@ -50,6 +55,11 @@ def main() -> None:
         case "fmt":
             run("isort", ROOT_PKG)
             run("black", ROOT_PKG)
+        case "lint":
+            run("isort", ROOT_PKG, "-c", failure_msg="Run `run.sh fmt` to fix.")
+            run("black", ROOT_PKG, "--quiet", "--check", failure_msg="Run `run.sh fmt` to fix.")
+            run("mypy", ROOT_PKG)
+            run("pylint", ROOT_PKG)
         case "test":
             run("python3", "-m", "unittest")
         case _:
