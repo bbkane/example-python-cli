@@ -9,8 +9,8 @@ IFS=$'\n\t'
 script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly script_dir
 
-# root is one level above this script
-readonly root="${script_dir}/.."
+# the script is in the root dir
+readonly root="${script_dir}"
 
 cd "${root}"
 
@@ -38,4 +38,4 @@ set -u
 
 # Shell out to Python now that we're in a root dir and have a venv
 # Get actual --help info
-python3 ./scripts/run.py "$@"
+python3 -m simple_python_package.scripts "$@"

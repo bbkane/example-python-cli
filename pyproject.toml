@@ -19,7 +19,7 @@ simple-python-package = "simple_python_package.main:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["simple_python_package*"]
-exclude = ["simple_python_package.tests*"]
+exclude = ["simple_python_package.tests*", "simple_python_package.scripts*"]
 namespaces = false
 
 [tool.black]

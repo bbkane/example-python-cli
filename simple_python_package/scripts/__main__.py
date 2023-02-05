@@ -12,8 +12,8 @@ __doc__ = """
 Run common development tasks for this repo.
 
 Examples:
-    ./scripts/run.sh --help
-    ./scripts/run.h test
+    ./run.sh --help
+    ./run.h test
 """
 
 ROOT_PKG = "simple_python_package"
@@ -48,6 +48,7 @@ def main() -> None:
 
     match args.subcommand_name:
         case "fmt":
+            run("isort", ROOT_PKG)
             run("black", ROOT_PKG)
         case "test":
             run("python3", "-m", "unittest")
