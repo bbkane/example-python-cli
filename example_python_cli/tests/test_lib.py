@@ -2,7 +2,7 @@
 
 import unittest
 
-from simple_python_package import lib
+from example_python_cli import lib
 
 
 class TestAddOne(unittest.TestCase):

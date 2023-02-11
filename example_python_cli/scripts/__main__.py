@@ -16,7 +16,7 @@ Examples:
     ./run.h test
 """
 
-ROOT_PKG = "simple_python_package"
+ROOT_PKG = "example_python_cli"
 
 
 def run(*args: str, failure_msg=None):

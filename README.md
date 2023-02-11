@@ -5,7 +5,7 @@ From: https://setuptools.pypa.io/en/latest/userguide/quickstart.html
 Create venv and install build tools:
 
 ```bash
-cd simple-python-package  # this README's directory
+cd example-python-cli  # this README's directory
 python3 -m venv venv
 source ./venv/bin/activate
 python -m pip install --upgrade setuptools build pip
@@ -16,7 +16,7 @@ Install symlink locally (make sure the `venv` is still activated so the global p
 ```bash
 pip install -e .
  # run entrypoint script to confirm it all works
-simple-python-package
+example-python-cli
 ```
 
 This package can also be installed globally without polluting the global python package installation with [`pipx`](https://pypa.github.io/pipx/)

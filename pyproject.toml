@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "simple-python-package"
+name = "example-python-cli"
 requires-python = ">=3.10"
 version = "0.0.1"
 dependencies = ["requests ~= 2.28.1"]
@@ -12,14 +12,14 @@ dependencies = ["requests ~= 2.28.1"]
 dev = ["black", "build", "isort", "mypy", "pylint", "types-requests"]
 
 [project.scripts]
-simple-python-package = "simple_python_package.main:main"
+example-python-cli = "example_python_cli.main:main"
 
 # NOTE: this is still beta. No idea what the schedule is to make it stable or discard it
 # Hopefullo https://github.com/pypa/setuptools/issues/3683#issuecomment-1408397531 will help
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["simple_python_package*"]
-exclude = ["simple_python_package.tests*", "simple_python_package.scripts*"]
+include = ["example_python_cli*"]
+exclude = ["example_python_cli.tests*", "example_python_cli.scripts*"]
 namespaces = false
 
 [tool.black]

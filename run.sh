@@ -41,4 +41,4 @@ set -u
 
 # Shell out to Python now that we're in a root dir and have a venv
 # Get actual --help info
-python3 -m simple_python_package.scripts "$@"
+python3 -m example_python_cli.scripts "$@"

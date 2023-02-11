@@ -1,11 +1,11 @@
 """Example main module"""
 
-import simple_python_package.lib
+import example_python_cli.lib
 
 
 def main():
     """Example main function"""
-    print(simple_python_package.lib.HELLO)
+    print(example_python_cli.lib.HELLO)
 
 
 if __name__ == "__main__":
