@@ -4,6 +4,7 @@
 import argparse
 import os
 import subprocess
+from pathlib import Path
 
 __author__ = "Benjamin Kane"
 __version__ = "0.1.0"
@@ -28,6 +29,33 @@ def run(*args: str, failure_msg=None):
         raise SystemExit(f"Command failed: {args}. Exiting...")
 
 
+def run_lint():
+    run("isort", ROOT_PKG, "-c", failure_msg="Run `run.sh fmt` to fix.")
+    run("black", ROOT_PKG, "--quiet", "--check", failure_msg="Run `run.sh fmt` to fix.")
+    run("mypy", ROOT_PKG)
+    run("pylint", ROOT_PKG)
+
+
+def run_precommit_install():
+    script = """#!/bin/bash
+
+# https://www.shellcheck.net/wiki/SC2155
+# https://stackoverflow.com/a/957978/2958070
+repo_root="$(git rev-parse --show-toplevel)"
+readonly repo_root
+
+"${repo_root}/run.sh" precommit run
+"""
+    path = Path("./.git/hooks/pre-commit")
+    path.write_text(script)
+    path.chmod(0o705)
+
+
+def run_precommit_uninstall():
+    path = Path("./.git/hooks/pre-commit")
+    path.unlink(missing_ok=True)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=__doc__,
@@ -38,6 +66,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     subcommands.add_parser("fmt", help="format source code")
     subcommands.add_parser("lint", help="run various source code linters")
+
+    precommit_cmd = subcommands.add_parser("precommit", help="precommit commands")
+    precommit_subcommands = precommit_cmd.add_subparsers(
+        dest="precommit_subcommand_name", required=True
+    )
+    precommit_subcommands.add_parser("install", help="add precommit hook to git")
+    precommit_subcommands.add_parser("run", help="run precommit hook")
+    precommit_subcommands.add_parser("uninstall", help="rm precommit hook from git")
+
     subcommands.add_parser("test", help="run tests")
 
     return parser
@@ -57,10 +94,17 @@ def main() -> None:
             run("isort", ROOT_PKG)
             run("black", ROOT_PKG)
         case "lint":
-            run("isort", ROOT_PKG, "-c", failure_msg="Run `run.sh fmt` to fix.")
-            run("black", ROOT_PKG, "--quiet", "--check", failure_msg="Run `run.sh fmt` to fix.")
-            run("mypy", ROOT_PKG)
-            run("pylint", ROOT_PKG)
+            run_lint()
+        case "precommit":
+            match args.precommit_subcommand_name:
+                case "install":
+                    run_precommit_install()
+                case "run":
+                    run_lint()
+                case "uninstall":
+                    run_precommit_uninstall()
+                case _:
+                    raise SystemExit(f"Unrecognized command: {args.precommit_subcommand_name}")
         case "test":
             run("python3", "-m", "unittest")
         case _:

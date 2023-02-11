@@ -12,7 +12,7 @@ dependencies = ["requests ~= 2.28.1"]
 dev = ["black", "build", "isort", "mypy", "pylint", "types-requests"]
 
 [project.scripts]
-example-python-cli = "example_python_cli.main:main"
+example-python-cli = "example_python_cli.__main__:main"
 
 # NOTE: this is still beta. No idea what the schedule is to make it stable or discard it
 # Hopefullo https://github.com/pypa/setuptools/issues/3683#issuecomment-1408397531 will help
