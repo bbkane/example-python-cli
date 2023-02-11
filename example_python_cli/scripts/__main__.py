@@ -21,6 +21,8 @@ ROOT_PKG = "example_python_cli"
 
 
 def run(*args: str, failure_msg=None):
+    """Run subcommand. Exit script (with optional failure message)
+    if subprocess exits with a non-zero return code"""
     res = subprocess.run(args, check=False)
     if res.returncode != 0:
         if failure_msg:
@@ -56,6 +58,10 @@ def run_precommit_uninstall():
     path.unlink(missing_ok=True)
 
 
+def run_requirements_freeze():
+    pass
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=__doc__,
@@ -74,6 +80,15 @@ def build_parser() -> argparse.ArgumentParser:
     precommit_subcommands.add_parser("install", help="add precommit hook to git")
     precommit_subcommands.add_parser("run", help="run precommit hook")
     precommit_subcommands.add_parser("uninstall", help="rm precommit hook from git")
+
+    requirements_cmd = subcommands.add_parser("requirements", help="requirements files commands")
+    requirements_subcommands = requirements_cmd.add_subparsers(
+        dest="requirements_subcommand_name", required=True
+    )
+    requirements_subcommands.add_parser(
+        "update",
+        help="update dependencies by installing from pyproject.toml into temp venv. This will install current direct dep versions from pyproject.toml and potentially update transitive dep versions",
+    )
 
     subcommands.add_parser("test", help="run tests")
 
@@ -105,6 +120,12 @@ def main() -> None:
                     run_precommit_uninstall()
                 case _:
                     raise SystemExit(f"Unrecognized command: {args.precommit_subcommand_name}")
+        case "requirements":
+            match args.requirements_subcommand_name:
+                case "update":
+                    run_requirements_freeze()
+                case _:
+                    raise SystemExit(f"Unrecognized command: {args.requirements_subcommand_name}")
         case "test":
             run("python3", "-m", "unittest")
         case _:

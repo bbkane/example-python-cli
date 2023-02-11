@@ -35,8 +35,9 @@ This can be necessary when I screw up `scripts/run.sh`.
 
 # TODO
 
-- Try out ruff
+- Try out ruff - blocked on https://github.com/charliermarsh/ruff/issues/282
 - Figure out how to get requirements files working and update dependencies?
 - CI/CD?
 - Get https://github.com/octodns/octodns-ns1/tree/main/script functionality
 - test coverage
+- I'd like to read TOML using the new stdlib tomlreader lib, but that's only in Python 3.11 and brew hasn't made that default yet - see https://github.com/Homebrew/homebrew-core/pull/114154
