@@ -2,19 +2,17 @@ Fairly recently, it's become possible to write Python packages without a `setup.
 
 From: https://setuptools.pypa.io/en/latest/userguide/quickstart.html
 
-Create venv and install build tools:
+Create venv and run tests
 
 ```bash
 cd example-python-cli  # this README's directory
-python3 -m venv venv
-source ./venv/bin/activate
-python -m pip install --upgrade setuptools build pip
+./run.sh test  # setup venv and run tests
 ```
 
-Install symlink locally (make sure the `venv` is still activated so the global python package installation stays clean):
+Activate the venv and run the CLI
 
 ```bash
-pip install -e .
+source venv/bin/activate
  # run entrypoint script to confirm it all works
 example-python-cli
 ```
@@ -38,7 +36,7 @@ This can be necessary when I screw up `scripts/run.sh`.
 # TODO
 
 - Try out ruff
-- Get pre-commit working (porbably a separate script here that shells out to run.sh)
 - Figure out how to get requirements files working and update dependencies?
 - CI/CD?
 - Get https://github.com/octodns/octodns-ns1/tree/main/script functionality
+- test coverage
