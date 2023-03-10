@@ -17,6 +17,7 @@ readonly script_dir
 cd "${script_dir}"
 
 git clean -xdf
+rm -rf ".git"
 
 find . -type f -not -path '*/\.git\/*' -not -path '\./rename.sh' -print0 \
     | xargs -0 perl -pi -w -e "s/example-python-cli/${new_project_name}/g;"
